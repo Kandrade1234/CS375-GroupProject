@@ -3,6 +3,7 @@
 #include <vector>
 #include<fstream>
 using namespace std;
+using namespace std::chrono;
 //Dynamic Programming Global Variables
 std::vector<int> weight;
 std::vector<int> profit;
@@ -43,7 +44,11 @@ int main (int argc, char *argv[])
     K[row] = new int[Capacity+1];
   }
 cout << "******************** DYNAMIC PROGRAMMING APPROACH ********************" << endl;
+  auto start = high_resolution_clock::now();
   cout << "Maximum profit is: " << knapSack(Capacity, totItems, K) << endl;
+  auto stop = high_resolution_clock::now();
+  auto runtime = duration_cast<microseconds>(stop - start);
+  cout << runtime.count() << "ms" << endl;
   computeOptimalSolution(K);
   cout << "The items in the bag are: " ;
   for(auto n : optimalItemsInBag)
@@ -70,7 +75,13 @@ profit.insert(profit.begin(), 0);
 
 
 cout << "******************** MEMOIZATION APPROACH ********************" << endl;
-cout<< "Maximum profit is: " << KSMemoazation(totItems, Capacity) << endl;
+auto start2 = high_resolution_clock::now();
+cout << "Maximum profit is: " << KSMemoazation(totItems, Capacity) << endl;
+auto stop2 = high_resolution_clock::now();
+auto runtime2 = duration_cast<microseconds>(stop2 - start2);
+cout << runtime2.count() << "ms" << endl;
+
+
   for(int row = 0; row < totItems+1; row++)
   {
     delete [] K[row];
