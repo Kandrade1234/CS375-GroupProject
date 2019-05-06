@@ -1,5 +1,5 @@
 # CS375-GroupProject
-
+data.txt contains items in the format of (weight, profit) and then a newline
 
 
 TO COMPILE:
