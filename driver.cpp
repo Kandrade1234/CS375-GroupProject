@@ -15,8 +15,15 @@ int totItems;
 void Input(string , string);
 int knapSack(int Capacity, int totItems, int ** K);
 void computeOptimalSolution(int ** K);
+int KSMemoazation(int n, int c);
+
 // A utility function that will return the max of two integers
 int max(int a, int b) {return (a > b)? a : b; }
+
+//////////MEMOAZATION Global Variables/////////////////////
+int ** arrMem = nullptr;
+int result;
+
 int main (int argc, char *argv[])
 {
 
@@ -44,14 +51,34 @@ int main (int argc, char *argv[])
     cout <<"Item " <<  n << " ";
   }
   cout<< endl;
+////////////MEMOAZATION//////////////////////////////////
+
+arrMem = new int*[totItems+1];
+for(int row = 0; row < totItems+1; row++)
+{
+    arrMem[row]= new int[Capacity+1];
+}
+for(int i = 0; i < totItems+1; i++)
+{
+  for(int j =0; j < Capacity+1; j++)
+  {
+    arrMem[i][j] = -1;
+  }
+}
+weight.insert(weight.begin(), 0);
+profit.insert(profit.begin(), 0);
 
 
-  for(int row = 0; row < totItems; row++)
+
+cout<< KSMemoazation(totItems, Capacity) << endl;
+  for(int row = 0; row < totItems+1; row++)
+  {
     delete [] K[row];
+    delete [] arrMem[row];
+  }
   delete [] K;
-
+  delete [] arrMem;
 return 0;
-
 }
 
 void Input(string file, string w_p)
@@ -101,4 +128,24 @@ void computeOptimalSolution(int ** K)
     }
     else i = i-1;
   }
+}
+
+//////////MEMOAZATION//////////////
+/*
+  n is equal to the number of items left,
+  c is equal to the capacity left
+*/
+int KSMemoazation(int n, int c)
+{
+  if (arrMem[n][c] != -1) return arrMem[n][c];
+  if (n == 0 || c == 0) result = 0; //base case
+  else if (weight[n] > c) result = KSMemoazation(n-1,c);
+  else
+  {
+    int temp1 = KSMemoazation(n-1, c);
+    int temp2 = profit[n] + KSMemoazation(n-1, c - weight[n]);
+    result = max(temp1, temp2);
+  }
+  arrMem[n][c]= result;
+  return result;
 }
