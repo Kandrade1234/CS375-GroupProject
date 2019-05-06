@@ -27,14 +27,14 @@ int result;
 int main (int argc, char *argv[])
 {
 
-  if (argc != 4)
+  if (argc != 3)
   {
-    cout << "Invalid Input. Please Ensure Correct Format <Weight.txt> <Profit.txt> <Capacity>";
+    cout << "Invalid Input. Please Ensure Correct Format <Data.txt> <Capacity>";
     return -1;
   }
   Input(argv[1], "w");
-  Input(argv[2], "p");
-  Capacity = atoi(argv[3]);
+  //Input(argv[2], "p");
+  Capacity = atoi(argv[2]);
   totItems = weight.size();
 
   /*Initializing 2D array*/
@@ -42,10 +42,10 @@ int main (int argc, char *argv[])
   for(int row = 0; row < totItems+1; row++){
     K[row] = new int[Capacity+1];
   }
-
-  cout << "maximum profit is: " << knapSack(Capacity, totItems, K) << endl;
+cout << "******************** DYNAMIC PROGRAMMING APPROACH ********************" << endl;
+  cout << "Maximum profit is: " << knapSack(Capacity, totItems, K) << endl;
   computeOptimalSolution(K);
-  cout << "the items in the bag are: " ;
+  cout << "The items in the bag are: " ;
   for(auto n : optimalItemsInBag)
   {
     cout <<"Item " <<  n << " ";
@@ -69,8 +69,8 @@ weight.insert(weight.begin(), 0);
 profit.insert(profit.begin(), 0);
 
 
-
-cout<< KSMemoazation(totItems, Capacity) << endl;
+cout << "******************** MEMOIZATION APPROACH ********************" << endl;
+cout<< "Maximum profit is: " << KSMemoazation(totItems, Capacity) << endl;
   for(int row = 0; row < totItems+1; row++)
   {
     delete [] K[row];
@@ -80,7 +80,7 @@ cout<< KSMemoazation(totItems, Capacity) << endl;
   delete [] arrMem;
 return 0;
 }
-
+/*
 void Input(string file, string w_p)
 {
   ifstream File;
@@ -91,8 +91,23 @@ void Input(string file, string w_p)
     else profit.push_back(n);
   }
   File.close();
+}*/
+void Input(string file, string w_p)
+{
+  ifstream File;
+  File.open(file);
+  int n;
+  while(File >> n){
+   weight.push_back(n);
+   if(File>>n)
+    profit.push_back(n);
+  }
+  File.close();
 }
 
+/*
+  O(nC)
+*/
 int knapSack(int Capacity, int totItems, int ** K){
   /*Building 2D Table in bottom up manner
     row = to the item
@@ -134,6 +149,7 @@ void computeOptimalSolution(int ** K)
 /*
   n is equal to the number of items left,
   c is equal to the capacity left
+  run time is also O(nC)
 */
 int KSMemoazation(int n, int c)
 {
