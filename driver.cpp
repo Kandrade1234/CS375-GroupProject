@@ -58,6 +58,12 @@ cout << "******************** DYNAMIC PROGRAMMING APPROACH ********************"
   }
   cout<< endl;
 
+  for(int i = 0; i < totItems+1; i++){
+    for(int j =0; j < Capacity+1; j++){
+      cout<< K[i][j] << " ";
+    }
+    cout<< endl;
+  }
 //////////////////////////////////MEMOAZATION//////////////////////////////////
 /*Initializing 2D array*/
 arrMem = new int*[totItems+1];
@@ -81,6 +87,12 @@ auto runtime2 = duration_cast<microseconds>(stop2 - start2);
 
 cout << "Time: " << runtime2.count() << "ms" << endl;
 
+for(int i = 0; i < totItems+1; i++){
+  for(int j =0; j < Capacity+1; j++){
+    cout<< arrMem[i][j] << " ";
+  }
+  cout<< endl;
+}
 
 //Deleting arrays to avoid memory leaks
   for(int row = 0; row < totItems+1; row++){
@@ -107,6 +119,7 @@ void Input(string file)
 
 /**
   O(nC)
+  solves all subproblems(repetition)
   where n is number of items and c is the capacity
   c is not a function of the number of items
   this is only good when C is relatively small in terms of n (i.e polynomial function of n rather than an exponential one)
@@ -154,10 +167,12 @@ void itemsInBag()
 
 //////////MEMOAZATION//////////////
 /*
+  top down
   n is equal to the number of items left,
   c is equal to the capacity left
-  run time is also O(nC)
-  
+  run time is O(nC)
+  since it wont repeat problems more than twice that we have solved due to memoazation
+  if every problem has to be solved once then it is not much different than dynamic programming
 */
 int KSMemoazation(int n, int c)
 {
@@ -166,7 +181,9 @@ int KSMemoazation(int n, int c)
   else if (weight[n] > c) result = KSMemoazation(n-1,c);
   else
   {
+    //no
     int temp1 = KSMemoazation(n-1, c);
+    //yes
     int temp2 = profit[n] + KSMemoazation(n-1, c - weight[n]);
     result = max(temp1, temp2);
   }
