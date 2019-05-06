@@ -13,7 +13,7 @@ std::vector<int> optimalItemsInBag;
 int totItems;
 //////////////////////////////////////
 
-void Input(string , string);
+void Input(string);
 int knapSack(int Capacity, int totItems, int ** K);
 void computeOptimalSolution(int ** K);
 int KSMemoazation(int n, int c);
@@ -33,7 +33,7 @@ int main (int argc, char *argv[])
     cout << "Invalid Input. Please Ensure Correct Format <Data.txt> <Capacity>";
     return -1;
   }
-  Input(argv[1], "w");
+  Input(argv[1]);
   //Input(argv[2], "p");
   Capacity = atoi(argv[2]);
   totItems = weight.size();
@@ -44,11 +44,12 @@ int main (int argc, char *argv[])
     K[row] = new int[Capacity+1];
   }
 cout << "******************** DYNAMIC PROGRAMMING APPROACH ********************" << endl;
+cout << "Capacity: " << Capacity << endl;;
   auto start = high_resolution_clock::now();
   cout << "Maximum profit is: " << knapSack(Capacity, totItems, K) << endl;
   auto stop = high_resolution_clock::now();
   auto runtime = duration_cast<microseconds>(stop - start);
-  cout << runtime.count() << "ms" << endl;
+  cout << "Time: " << runtime.count() << "ms" << endl;
   computeOptimalSolution(K);
   cout << "The items in the bag are: " ;
   for(auto n : optimalItemsInBag)
@@ -73,13 +74,13 @@ for(int i = 0; i < totItems+1; i++)
 weight.insert(weight.begin(), 0);
 profit.insert(profit.begin(), 0);
 
-
 cout << "******************** MEMOIZATION APPROACH ********************" << endl;
+cout << "Capacity: " << Capacity << endl;;
 auto start2 = high_resolution_clock::now();
 cout << "Maximum profit is: " << KSMemoazation(totItems, Capacity) << endl;
 auto stop2 = high_resolution_clock::now();
 auto runtime2 = duration_cast<microseconds>(stop2 - start2);
-cout << runtime2.count() << "ms" << endl;
+cout << "Time: " << runtime2.count() << "ms" << endl;
 
 
   for(int row = 0; row < totItems+1; row++)
@@ -103,7 +104,7 @@ void Input(string file, string w_p)
   }
   File.close();
 }*/
-void Input(string file, string w_p)
+void Input(string file)
 {
   ifstream File;
   File.open(file);
