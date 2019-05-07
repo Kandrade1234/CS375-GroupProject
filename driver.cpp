@@ -57,13 +57,13 @@ cout << "******************** DYNAMIC PROGRAMMING APPROACH ********************"
     cout <<"Item " <<  n << " ";
   }
   cout<< endl;
-
+/*
   for(int i = 0; i < totItems+1; i++){
     for(int j =0; j < Capacity+1; j++){
       cout<< K[i][j] << " ";
     }
     cout<< endl;
-  }
+  }*/
 //////////////////////////////////MEMOAZATION//////////////////////////////////
 /*Initializing 2D array*/
 arrMem = new int*[totItems+1];
@@ -86,14 +86,14 @@ auto stop2 = high_resolution_clock::now();
 auto runtime2 = duration_cast<microseconds>(stop2 - start2);
 
 cout << "Time: " << runtime2.count() << "ms" << endl;
-
+/*
 for(int i = 0; i < totItems+1; i++){
   for(int j =0; j < Capacity+1; j++){
     cout<< arrMem[i][j] << " ";
   }
   cout<< endl;
 }
-
+*/
 //Deleting arrays to avoid memory leaks
   for(int row = 0; row < totItems+1; row++){
     delete [] K[row];
