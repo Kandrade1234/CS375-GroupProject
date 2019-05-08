@@ -51,12 +51,12 @@ cout << "******************** DYNAMIC PROGRAMMING APPROACH ********************"
 
   cout << "Time: " << runtime.count() << "ms" << endl;
 
-  itemsInBag();
+  /*itemsInBag();
   cout << "The items in the bag are: " ;
   for(auto n : optimalItemsInBag){
     cout <<"Item " <<  n << " ";
   }
-  cout<< endl;
+  cout<< endl;*/
 /*
   for(int i = 0; i < totItems+1; i++){
     for(int j =0; j < Capacity+1; j++){
@@ -103,7 +103,7 @@ for(int i = 0; i < totItems+1; i++){
   delete [] arrMem;
 return 0;
 }
-
+/*
 void Input(string file)
 {
   ifstream File;
@@ -113,6 +113,18 @@ void Input(string file)
    weight.push_back(n);
    if(File>>n)
     profit.push_back(n);
+  }
+  File.close();
+}*/
+void Input(string file)
+{
+  ifstream File;
+  File.open(file);
+  int n;
+  while(File >> n){
+   profit.push_back(n);
+   if(File>>n)
+    weight.push_back(n);
   }
   File.close();
 }
